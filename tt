@@ -1,0 +1,56 @@
+package cube
+
+import "fmt"
+
+type Cube3x3 struct {
+	sides [CubeSides][sideCount3x3]int
+}
+
+// NewCube3x3 returns a new Cube3x3 with the default colors.
+func NewCube3x3() Cube3x3 {
+	return Cube3x3{
+		sides: [CubeSides][sideCount3x3]int{
+			{Green, Green, Green, Green, Green, Green, Green, Green, Green},
+			{Red, Red, Red, Red, Red, Red, Red, Red, Red},
+			{Blue, Blue, Blue, Blue, Blue, Blue, Blue, Blue, Blue},
+			{Orange, Orange, Orange, Orange, Orange, Orange, Orange, Orange, Orange},
+			{White, White, White, White, White, White, White, White, White},
+			{Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow},
+		},
+	}
+}
+
+func Rotate3x3(stickers [9]int, direction int) [9]int {
+	newStickers := [9]int{}
+	for i := 0; i < 9; i++ {
+		row := i / 3
+		col := i % 3
+		newRow := col
+		newCol := 2 - row
+		if direction == CounterClockwise {
+			newRow = 2 - col
+			newCol = row
+		}
+		newStickers[newRow*3+newCol] = stickers[i]
+	}
+
+	return newStickers
+}
+
+func (cube Cube3x3) Rotate(side string, direction int) {
+	sideIndex, err := getFaceIndex(side)
+	if err != nil {
+		return
+	}
+	color := Colors[sideIndex]
+
+	fmt.Print(color, ": ")
+  adj, err := getAdjacentColors(side)
+  if err != nil {
+    return
+  }
+  
+  for i := 0; i < 3; i++ {
+
+	fmt.Println()
+}
