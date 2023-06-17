@@ -35,10 +35,10 @@ func New() model {
 		keymap: keymap{
 			start: key.NewBinding(
 				key.WithKeys("space", "s"),
-				key.WithHelp("s", "start/stop")),
+				key.WithHelp("s", "start")),
 			stop: key.NewBinding(
 				key.WithKeys("s", " "),
-			),
+				key.WithHelp("s", "stop")),
 			reset: key.NewBinding(
 				key.WithKeys("r"),
 				key.WithHelp("r", "reset")),
@@ -79,7 +79,6 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m model) HelpView() string {
 	return "\n" + m.help.ShortHelpView([]key.Binding{
 		m.keymap.start,
-		m.keymap.stop,
 		m.keymap.reset,
 		m.keymap.quit,
 	})
