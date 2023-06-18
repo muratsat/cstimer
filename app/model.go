@@ -77,7 +77,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) HelpView() string {
-	return "\n" + m.help.ShortHelpView([]key.Binding{
+	return "\n " + m.help.ShortHelpView([]key.Binding{
 		m.keymap.start,
 		m.keymap.reset,
 		m.keymap.quit,
@@ -86,9 +86,10 @@ func (m model) HelpView() string {
 
 func (m model) View() string {
 	scramble := cube.ScrambleString(m.moves)
-	result := "scramble:   " + scramble + "\n\n\n"
+	result := "\n  cstimer\n\n"
+	result += "  scramble:  " + scramble + "\n\n"
 	// result += m.cube.String() + "\n\n"
-	result += "   time: " + m.stopwatch.View() + "\n\n"
-	result += m.HelpView()
+	result += "  time: " + m.stopwatch.View() + "\n\n"
+	result += "  " + m.HelpView()
 	return result
 }
