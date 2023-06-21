@@ -2,71 +2,72 @@ package cube
 
 import "math/rand"
 
+type movetype int
+
+const (
+	movetypeNormal = iota
+	movetypePrime
+	movetypeDouble
+)
+
 type Move struct {
 	// Side to rotate (F, R, B, L, U, D)
 	side int
-	// Number of turns, if negative, number of CounterClockwise turns
-	count int
+	// type of rotation (normal, prime, double)
+	moveType int
 }
 
-func randomSide() int {
-	return rand.Intn(6)
-}
-
-func randomDirection() int {
-	max := 100
-	if rand.Intn(max) < max/4 {
-		return Clockwise
+func (m Move) String() string {
+	color := GetColor(m.side)
+	switch m.moveType {
+	case movetypeNormal:
+		return color.side
+	case movetypePrime:
+		return color.side + "'"
+	case movetypeDouble:
+		return "2" + color.side
 	}
-	return CounterClockwise
+	return ""
+}
+
+func randomMove(previous Move) Move {
+	side := rand.Intn(6)
+	moveType := rand.Intn(3)
+	for side == previous.side {
+		side = rand.Intn(6)
+	}
+	return Move{side: side, moveType: moveType}
 }
 
 func GenerateMoves() []Move {
 	var moves []Move
-	count := 0
-	maxMoves := 25
+	maxMoves := 20
+	var lastMove Move
 	for i := 0; i < maxMoves; i++ {
-		side := randomSide()
-		direction := randomDirection()
-
-		if count > 0 && side == moves[count-1].side {
-			moves[count-1].count += direction
-			continue
-		}
-		moves = append(moves, Move{side: side, count: 1})
-		count++
+		move := randomMove(lastMove)
+		lastMove = move
+		moves = append(moves, move)
 	}
 	return moves
 }
 
 func ScrambleString(moves []Move) string {
 	total := len(moves)
-	if total == 0 {
-		return ""
-	}
-
 	result := ""
 
 	for i := 0; i < total; i++ {
-		count := moves[i].count
-		if count == 0 {
-			continue
+		move := moves[i]
+		result += move.String()
+		if i < total-1 {
+			result += " "
 		}
-		if count%2 == 0 {
-			result += "2"
-		}
-		result += faceByColor[moves[i].side]
-		if count < 0 && count%2 != 0 {
-			result += "'"
-		}
-		result += " "
 	}
 
 	return result
 }
 
-func GenerateScramble() string {
+func GenerateScramble() (string, []Move) {
 	moves := GenerateMoves()
 	scramble := ScrambleString(moves)
-	return scramble
+	return scramble, moves
 }
