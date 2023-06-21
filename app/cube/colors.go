@@ -4,17 +4,17 @@ package cube
 type Color struct {
 	number int    // order number for color
 	name   string // string name for color, e.g. "Green"
-	side   string // side letter for color, e.g. "F" for front, "R" for right, etc.
+	side   Side   // side letter for color, e.g. "F" for front, "R" for right, etc.
 }
 
 // Colors for 6 sides of a rubik's cube.
 var (
-	Green  = Color{0, "Green ", "F"}
-	Red    = Color{1, "Red", "R"}
-	Blue   = Color{2, "Blue", "B"}
-	Orange = Color{3, "Orange", "L"}
-	White  = Color{4, "White", "U"}
-	Yellow = Color{5, "Yellow", "D"}
+	Green  = Color{0, "Green", SideFront}
+	Red    = Color{1, "Red", SideRight}
+	Blue   = Color{2, "Blue", SideBack}
+	Orange = Color{3, "Orange", SideLeft}
+	White  = Color{4, "White", SideUp}
+	Yellow = Color{5, "Yellow", SideDown}
 )
 
 var cubeColors = [6]Color{Green, Red, Blue, Orange, White, Yellow}

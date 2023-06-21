@@ -21,11 +21,11 @@ func (m Move) String() string {
 	color := GetColor(m.side)
 	switch m.moveType {
 	case movetypeNormal:
-		return color.side
+		return color.side.String()
 	case movetypePrime:
-		return color.side + "'"
+		return color.side.String() + "'"
 	case movetypeDouble:
-		return "2" + color.side
+		return "2" + color.side.String()
 	}
 	return ""
 }

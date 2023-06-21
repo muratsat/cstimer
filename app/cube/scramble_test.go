@@ -38,11 +38,11 @@ func TestMoveString(t *testing.T) {
 	for _, move := range moves {
 		switch move.moveType {
 		case movetypeNormal:
-			expectEqual(move.String(), GetColor(move.side).side, t)
+			expectEqual(move.String(), GetColor(move.side).side.String(), t)
 		case movetypePrime:
-			expectEqual(move.String(), GetColor(move.side).side+"'", t)
+			expectEqual(move.String(), GetColor(move.side).side.String()+"'", t)
 		case movetypeDouble:
-			expectEqual(move.String(), "2"+GetColor(move.side).side, t)
+			expectEqual(move.String(), "2"+GetColor(move.side).side.String(), t)
 		}
 	}
 }
