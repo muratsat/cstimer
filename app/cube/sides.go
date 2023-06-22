@@ -24,7 +24,7 @@ const (
 
 func (side Side) String() string {
 	color := GetColor(int(side))
-	index := int(color.side)
+	index := int(color.Side)
 	return string(sidesString[index])
 }
 
