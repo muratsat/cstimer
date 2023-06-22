@@ -7,8 +7,6 @@ import (
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/stopwatch"
 	tea "github.com/charmbracelet/bubbletea"
-
-	"github.com/muratsat/cstimer/app/cube"
 )
 
 type keymap struct {
@@ -20,18 +18,18 @@ type keymap struct {
 
 type model struct {
 	stopwatch stopwatch.Model
-	cube      cube.Cube3x3
-	help      help.Model
-	keymap    keymap
-	moves     []cube.Move
+	// cube      cube.Cube3x3
+	help   help.Model
+	keymap keymap
+	// moves  []cube.Move
 }
 
 func New() model {
 	return model{
 		stopwatch: stopwatch.NewWithInterval(time.Millisecond * 30),
-		moves:     cube.GenerateMoves(),
-		cube:      cube.NewCube3x3(),
-		help:      help.New(),
+		// moves:     cube.GenerateMoves(),
+		// cube:      cube.NewCube3x3(),
+		help: help.New(),
 		keymap: keymap{
 			start: key.NewBinding(
 				key.WithKeys("space", "s"),
@@ -67,7 +65,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return m, m.stopwatch.Start()
 			}
 		case "r":
-			m.moves = cube.GenerateMoves()
+			// m.moves = cube.GenerateMoves()
 			return m, m.stopwatch.Reset()
 		}
 	}
@@ -85,9 +83,9 @@ func (m model) HelpView() string {
 }
 
 func (m model) View() string {
-	scramble := cube.ScrambleString(m.moves)
+	// scramble := cube.ScrambleString(m.moves)
 	result := "\n  cstimer\n\n"
-	result += "  scramble:  " + scramble + "\n\n"
+	// result += "  scramble:  " + scramble + "\n\n"
 	// result += m.cube.String() + "\n\n"
 	result += "  time: " + m.stopwatch.View() + "\n\n"
 	result += "  " + m.HelpView()
